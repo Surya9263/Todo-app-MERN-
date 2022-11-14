@@ -23,6 +23,12 @@ export const todoReducer = (state = [], action) => {
       return state.map((todo) =>
         todo._id === action.payload._id ? action.payload : todo
       );
+    case "DELETE_TODO":
+      toast.success("Todo deleted successfully...", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      console.log(action.payload);
+      return state.filter((todo) => todo._id !== action.payload);
     default:
       return state;
   }

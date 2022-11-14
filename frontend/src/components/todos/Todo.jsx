@@ -3,7 +3,7 @@ import { Typography,Button,ButtonGroup } from '@mui/material'
 import { Create,Delete,CheckCircle } from '@mui/icons-material'
 import moment from "moment"
 import { useDispatch } from 'react-redux'
-import { checkTodo } from '../../store/todo/todo.actions'
+import { checkTodo, deleteTodo } from '../../store/todo/todo.actions'
 const todoStyle={
     margin:"20px auto",
     padding:"20px",
@@ -22,6 +22,9 @@ const Todo = ({todo,setTodo}) => {
 
     const handleCheck=(id)=>{
         dispatch(checkTodo(id))
+    }
+    const handleDelete=(id)=>{
+        dispatch(deleteTodo(id))
     }
 
   return (
@@ -53,7 +56,7 @@ const Todo = ({todo,setTodo}) => {
                 <Button onClick={handleUpdate}>
                     <Create/>
                 </Button>
-                <Button>
+                <Button onClick={()=>handleDelete(todo._id)}>
                     <Delete style={{color:"#ba000d"}}/>
                 </Button>
             </ButtonGroup>

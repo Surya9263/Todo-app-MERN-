@@ -1,5 +1,4 @@
-
-const authMiddleware=require("../middleware/auth")
+const authMiddleware = require("../middleware/auth");
 
 const Todo = require("../models/todo");
 const express = require("express");
@@ -60,7 +59,7 @@ router.put("/:id", async (req, res) => {
   try {
     const todo = await Todo.findById(id);
     if (!todo) {
-      return res.status(404).send("todo not found...");
+      return res.status(404).send("Todo not found...");
     }
 
     const updatedTodo = await Todo.findByIdAndUpdate(id, req.body, {
@@ -80,9 +79,13 @@ router.patch("/:id", async (req, res) => {
       return res.status(404).send("todo not found...");
     }
 
-    const updatedTodo = await Todo.findByIdAndUpdate(id, {
-      isComplete: !todo.isComplete,
-    });
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      id,
+      {
+        isComplete: !todo.isComplete,
+      },
+      { new: true }
+    );
     res.send(updatedTodo);
   } catch (error) {
     res.status(500).send(error.message);
@@ -98,7 +101,7 @@ router.delete("/:id", async (req, res) => {
     }
 
     const deletedTodo = await Todo.findByIdAndDelete(id);
-    res.send("Successfully deleted");
+    res.send(deletedTodo);
   } catch (error) {
     res.status(500).send(error.message);
   }

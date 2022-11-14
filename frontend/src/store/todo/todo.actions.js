@@ -47,10 +47,24 @@ export const updateTodo = (updatedTodo, id) => async (dispatch) => {
 };
 export const checkTodo = (id) => async (dispatch) => {
   try {
-    let res = await axios.put(`http://localhost:5000/api/todos/${id}`, {});
+    let res = await axios.patch(`http://localhost:5000/api/todos/${id}`, {});
     dispatch({
       type: "CHECK_TODO",
       payload: res.data,
+    });
+  } catch (error) {
+    console.log(error);
+    toast.error(error.response?.data, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  }
+};
+export const deleteTodo = (id) => async (dispatch) => {
+  try {
+    let res = await axios.delete(`http://localhost:5000/api/todos/${id}`);
+    dispatch({
+      type: "DELETE_TODO",
+      payload: id,
     });
   } catch (error) {
     console.log(error);
