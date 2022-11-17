@@ -2,10 +2,13 @@ import React from 'react'
 
 import {AppBar,Typography,Toolbar,Button} from "@mui/material"
 import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
 
     const navigate=useNavigate();
+    const state=useSelector((store)=>store)
+    console.log(state);
 
     const handleSignout=()=>{
         //signout the user

@@ -4,9 +4,16 @@ import { Container } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { loadUser } from "./store/auth/auth.actions";
 
 function App() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
+
   return (
     <>
       <ToastContainer />
