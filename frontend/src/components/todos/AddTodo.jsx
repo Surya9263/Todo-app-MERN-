@@ -28,7 +28,8 @@ const AddTodo = ({todo,setTodo}) => {
         title:todo.title,
         isComplete:todo.isComplete,
         date:todo.date,
-        author:"NEW"
+        author:todo.author,
+        uid:todo.uid
       }
       dispatch(updateTodo(updatedTodo,id));
     }else{

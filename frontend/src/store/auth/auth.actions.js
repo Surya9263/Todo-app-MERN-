@@ -18,7 +18,6 @@ export const signUp = (user) => async (dispatch) => {
   }
 };
 
-
 export const signIn = (creds) => async (dispatch) => {
   try {
     let res = await axios.post("http://localhost:5000/api/signin", creds);
@@ -35,7 +34,6 @@ export const signIn = (creds) => async (dispatch) => {
   }
 };
 
-
 export const loadUser = () => async (dispatch) => {
   const token = store.getState().auth.token;
   if (token) {
@@ -46,4 +44,8 @@ export const loadUser = () => async (dispatch) => {
   } else {
     return null;
   }
+};
+
+export const signOut = () => async (dispatch) => {
+  dispatch({ type: "SIGN_OUT" });
 };

@@ -6,17 +6,18 @@ const Joi = require("joi");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
     let todos = await Todo.find().sort({ date: -1 });
+    const filteredTodos = todos.filter((todo) => todo.uid === req.user._id);
     // console.log(req.user);
-    res.send(todos);
+    res.send(filteredTodos);
   } catch (error) {
     res.status(500).send(error.message);
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   const schema = Joi.object({
     title: Joi.string().min(3).max(200).required(),
     author: Joi.string().min(3).max(30),
@@ -40,7 +41,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", authMiddleware, async (req, res) => {
   const schema = Joi.object({
     title: Joi.string().min(3).max(200).required(),
     author: Joi.string().min(3).max(30),
@@ -61,6 +62,8 @@ router.put("/:id", async (req, res) => {
     if (!todo) {
       return res.status(404).send("Todo not found...");
     }
+    if (todo.uid !== req.user._id)
+      return res.status(401).send("Todo update failed. Not authorized...");
 
     const updatedTodo = await Todo.findByIdAndUpdate(id, req.body, {
       new: true,
@@ -71,14 +74,17 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
   try {
     const todo = await Todo.findById(id);
     if (!todo) {
       return res.status(404).send("todo not found...");
     }
-
+    if (todo.uid !== req.user._id)
+      return res
+        .status(401)
+        .send("Todo check/uncheck failed. Not authorized...");
     const updatedTodo = await Todo.findByIdAndUpdate(
       id,
       {
@@ -92,13 +98,15 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
   try {
     const todo = await Todo.findById(id);
     if (!todo) {
       return res.status(404).send("todo not found...");
     }
+    if (todo.uid !== req.user._id)
+      return res.status(401).send("Todo deletion failed. Not authorized...");
 
     const deletedTodo = await Todo.findByIdAndDelete(id);
     res.send(deletedTodo);

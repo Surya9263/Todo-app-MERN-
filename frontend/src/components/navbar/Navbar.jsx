@@ -2,16 +2,19 @@ import React from 'react'
 
 import {AppBar,Typography,Toolbar,Button} from "@mui/material"
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from '../../store/auth/auth.actions';
 
 const Navbar = () => {
 
     const navigate=useNavigate();
     const state=useSelector((store)=>store)
     console.log(state);
+    const dispatch=useDispatch()
 
     const handleSignout=()=>{
         //signout the user
+        dispatch(signOut())
         navigate("/signin")
     }
   return (
