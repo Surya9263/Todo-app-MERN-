@@ -4,7 +4,7 @@ import { store } from "..";
 
 export const signUp = (user) => async (dispatch) => {
   try {
-    let res = await axios.post("http://localhost:5000/api/signup", user);
+    let res = await axios.post("https://todo-app-dbwb.onrender.com/api/signup", user);
     localStorage.setItem("token", res.data);
     dispatch({
       type: "SIGN_UP",
@@ -20,7 +20,7 @@ export const signUp = (user) => async (dispatch) => {
 
 export const signIn = (creds) => async (dispatch) => {
   try {
-    let res = await axios.post("http://localhost:5000/api/signin", creds);
+    let res = await axios.post("https://todo-app-dbwb.onrender.com/api/signin", creds);
     localStorage.setItem("token", res.data);
     dispatch({
       type: "SIGN_IN",
