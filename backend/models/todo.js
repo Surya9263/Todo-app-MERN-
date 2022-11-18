@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const todoSchema = new mongoose.Schema({
   title: { type: String, required: true, minlength: 3, maxlength: 200 },
   author:{ type: String, minlength: 3, maxlength: 30 },
+  uid: String,
   id: String,
   isComplete: Boolean,
   date: { type: Date, default: new Date() },

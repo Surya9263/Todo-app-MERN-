@@ -8,8 +8,8 @@ import { signOut } from '../../store/auth/auth.actions';
 const Navbar = () => {
 
     const navigate=useNavigate();
-    const state=useSelector((store)=>store)
-    console.log(state);
+    const auth=useSelector((store)=>store.auth)
+    // console.log(state);
     const dispatch=useDispatch()
 
     const handleSignout=()=>{
@@ -24,10 +24,10 @@ const Navbar = () => {
             <Typography variant='h4' flexGrow={1}>
                 <Link style={{color:"white",textDecoration:"none"}} to="/">Todo App</Link>
             </Typography>
-            <Typography variant='subtitle2' flexGrow={1}>Logged in as SURYA</Typography>
-            <Button onClick={handleSignout} color='inherit'>SIGNOUT</Button>
-            <Button color='inherit'><Link style={{color:"white",textDecoration:"none"}} to="/signin">SIGN IN</Link></Button>
-            <Button color='inherit'><Link style={{color:"white",textDecoration:"none"}} to="/signup">SIGN UP</Link></Button>
+            {auth._id?(<><Typography variant='subtitle2' flexGrow={1}>Logged in as {auth.name}</Typography>
+            <Button onClick={handleSignout} color='inherit'>SIGNOUT</Button></>):(<><Button color='inherit'><Link style={{color:"white",textDecoration:"none"}} to="/signin">SIGN IN</Link></Button>
+            <Button color='inherit'><Link style={{color:"white",textDecoration:"none"}} to="/signup">SIGN UP</Link></Button></>)}
+            
         </Toolbar>
     </AppBar>
     </>

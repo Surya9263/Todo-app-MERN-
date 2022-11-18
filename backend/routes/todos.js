@@ -10,7 +10,7 @@ router.get("/", authMiddleware, async (req, res) => {
   try {
     let todos = await Todo.find().sort({ date: -1 });
     const filteredTodos = todos.filter((todo) => todo.uid === req.user._id);
-    // console.log(req.user);
+    console.log(filteredTodos);
     res.send(filteredTodos);
   } catch (error) {
     res.status(500).send(error.message);
@@ -21,6 +21,7 @@ router.post("/", authMiddleware, async (req, res) => {
   const schema = Joi.object({
     title: Joi.string().min(3).max(200).required(),
     author: Joi.string().min(3).max(30),
+    uid: Joi.string(),
     id: Joi.string(),
     isComplete: Joi.boolean(),
     date: Joi.date(),
@@ -32,9 +33,11 @@ router.post("/", authMiddleware, async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
-  const t = req.body;
+  const { title, author, isComplete, date, uid } = req.body;
+  // console.log(req.body);
+
   try {
-    let todo = await Todo.create(t);
+    let todo = await Todo.create({ title, author, isComplete, date, uid });
     res.send(todo);
   } catch (error) {
     res.status(500).send(error.message);

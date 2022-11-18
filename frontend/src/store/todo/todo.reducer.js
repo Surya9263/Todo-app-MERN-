@@ -5,6 +5,7 @@ export const todoReducer = (state = [], action) => {
     case "GET_TODOS":
       return action.payload;
     case "ADD_TODO":
+      // console.log(state);
       toast.success("New Todo Added Successfully...", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });

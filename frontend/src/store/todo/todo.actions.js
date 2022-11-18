@@ -15,13 +15,14 @@ export const getTodos = () => async (dispatch) => {
   }
 };
 
-export const addTodo = (todo) => async (dispatch) => {
+export const addTodo = (newTodo) => async (dispatch) => {
   const author = store.getState().auth.name;
   const uid = store.getState().auth._id;
+  // console.log(newTodo);
   try {
     let res = await axios.post(
       "http://localhost:5000/api/todos",
-      { ...todo, author, uid },
+      { ...newTodo, author, uid },
       setHeaders()
     );
     dispatch({
@@ -29,7 +30,7 @@ export const addTodo = (todo) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     toast.error(error.response?.data, {
       position: toast.POSITION.BOTTOM_RIGHT,
     });

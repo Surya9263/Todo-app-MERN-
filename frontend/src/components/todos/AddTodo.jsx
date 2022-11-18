@@ -21,6 +21,7 @@ const AddTodo = ({todo,setTodo}) => {
   const dispatch=useDispatch();
 
   const handleSubmit=(e)=>{
+    e.preventDefault();
 
     if(todo._id){
       const id=todo._id
@@ -36,8 +37,6 @@ const AddTodo = ({todo,setTodo}) => {
       const newTodo={...todo,date:new Date()}
       dispatch(addTodo(newTodo));
     }
-
-    e.preventDefault();
 
 
     setTodo({title:"",isComplete:false})
