@@ -5,7 +5,7 @@ import { setHeaders } from "../../api";
 
 export const getTodos = () => async (dispatch) => {
   try {
-    let res = await axios.get("https://todo-app-dbwb.onrender.com/api/todos", setHeaders());
+    let res = await axios.get("http://localhost:5000/api/todos", setHeaders());
     dispatch({
       type: "GET_TODOS",
       payload: res.data,
@@ -21,7 +21,7 @@ export const addTodo = (newTodo) => async (dispatch) => {
   // console.log(newTodo);
   try {
     let res = await axios.post(
-      "https://todo-app-dbwb.onrender.com/api/todos",
+      "http://localhost:5000/api/todos",
       { ...newTodo, author, uid },
       setHeaders()
     );
@@ -40,7 +40,7 @@ export const addTodo = (newTodo) => async (dispatch) => {
 export const updateTodo = (updatedTodo, id) => async (dispatch) => {
   try {
     let res = await axios.put(
-      `https://todo-app-dbwb.onrender.com/api/todos/${id}`,
+      `http://localhost:5000/api/todos/${id}`,
       updatedTodo,
       setHeaders()
     );
@@ -58,7 +58,7 @@ export const updateTodo = (updatedTodo, id) => async (dispatch) => {
 export const checkTodo = (id) => async (dispatch) => {
   try {
     let res = await axios.patch(
-      `https://todo-app-dbwb.onrender.com/api/todos/${id}`,
+      `http://localhost:5000/api/todos/${id}`,
       {},
       setHeaders()
     );
@@ -76,7 +76,7 @@ export const checkTodo = (id) => async (dispatch) => {
 export const deleteTodo = (id) => async (dispatch) => {
   try {
     let res = await axios.delete(
-      `https://todo-app-dbwb.onrender.com/api/todos/${id}`,
+      `http://localhost:5000/api/todos/${id}`,
       setHeaders()
     );
     dispatch({
