@@ -5,7 +5,7 @@ import { setHeaders } from "../../api";
 
 export const getTodos = () => async (dispatch) => {
   try {
-    let res = await axios.get("http://localhost:5000/api/todos", setHeaders());
+    let res = await axios.get("https://todo-app-mern-production.up.railway.app/api/todos", setHeaders());
     dispatch({
       type: "GET_TODOS",
       payload: res.data,
@@ -21,7 +21,7 @@ export const addTodo = (newTodo) => async (dispatch) => {
   // console.log(newTodo);
   try {
     let res = await axios.post(
-      "http://localhost:5000/api/todos",
+      "https://todo-app-mern-production.up.railway.app/api/todos",
       { ...newTodo, author, uid },
       setHeaders()
     );
@@ -40,7 +40,7 @@ export const addTodo = (newTodo) => async (dispatch) => {
 export const updateTodo = (updatedTodo, id) => async (dispatch) => {
   try {
     let res = await axios.put(
-      `http://localhost:5000/api/todos/${id}`,
+      `https://todo-app-mern-production.up.railway.app/api/todos/${id}`,
       updatedTodo,
       setHeaders()
     );
@@ -58,7 +58,7 @@ export const updateTodo = (updatedTodo, id) => async (dispatch) => {
 export const checkTodo = (id) => async (dispatch) => {
   try {
     let res = await axios.patch(
-      `http://localhost:5000/api/todos/${id}`,
+      `https://todo-app-mern-production.up.railway.app/api/todos/${id}`,
       {},
       setHeaders()
     );
@@ -76,7 +76,7 @@ export const checkTodo = (id) => async (dispatch) => {
 export const deleteTodo = (id) => async (dispatch) => {
   try {
     let res = await axios.delete(
-      `http://localhost:5000/api/todos/${id}`,
+      `https://todo-app-mern-production.up.railway.app/api/todos/${id}`,
       setHeaders()
     );
     dispatch({
